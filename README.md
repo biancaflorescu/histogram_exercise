@@ -18,3 +18,16 @@ $ npm start
 ```
 
 ## Implementation Process
+
+- Define a Query with the necessary fields and run it in the Goosfraba GraphQL Playground at endpoint /graphql
+
+```
+query getPosts {
+  allPosts(count: 50) {
+    id
+    createdAt
+  }
+}
+```
+
+- Create a components folder for a Header Component and a Histogram Component and import the components in the App.js file
