@@ -69,8 +69,29 @@ if (loading) return "Loading...";
 if (error) return `Error! ${error.message}`;
 ```
 
-- Display the raw data object with **JSON.stringify** to see that we get what we want
+- Display the raw data object with **JSON.stringify** to see what we get
 
 ```
 <div>{JSON.stringify(data)}</div>
 ```
+
+- Create an object **monthsCounter** that has as keys all the months, each of them with the value of 0. In this object we will store how many posts we have in each month
+
+- Iterate through the raw data object and convert the **createdAt** field from milliseconds to date using JavaScript **Date** object
+
+- Write a conditional statement to check only for posts from 2019, get only the month from the full date details and for each month increment the value of the correspondent month key in the **monthsCounter** object
+
+```
+ data.allPosts.map((post) => {
+    const date = new Date(Number(post.createdAt));
+
+    if (date.getFullYear() === 2019) {
+      const month = date.toLocaleString("en-US", { month: "short" });
+      if (monthsCounter.hasOwnProperty(month)) {
+        monthsCounter[month]++;
+      }
+    }
+  });
+```
+
+- Write console.log() methods to verify if the logic works as expected
