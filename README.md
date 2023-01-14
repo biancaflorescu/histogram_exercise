@@ -56,3 +56,21 @@ const client = new ApolloClient({
 - Wrap the app's top-level components in the **ApolloProvider** component and pass it the client instance as a prop
 
 - Import **gql** in histogram.js and create a constant **POSTS** with the value of our Query defined in the first step
+
+- Import **useQuery** hook in histogram.js and declare 3 destructured constants from this hook: **loading**, **error** and **data**
+
+- Call **useQuery** with **POSTS** query as its argument
+
+- Write conditional statements that handle the loading constant and the error state
+
+```
+if (loading) return "Loading...";
+
+if (error) return `Error! ${error.message}`;
+```
+
+- Display the raw data object with **JSON.stringify** to see that we get what we want
+
+```
+<div>{JSON.stringify(data)}</div>
+```
