@@ -54,3 +54,5 @@ const client = new ApolloClient({
 ```
 
 - Wrap the app's top-level components in the **ApolloProvider** component and pass it the client instance as a prop
+
+- Import **gql** in histogram.js and create a constant **POSTS** with the value of our Query defined in the first step
