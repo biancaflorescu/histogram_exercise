@@ -1,7 +1,7 @@
-import "./App.css";
 import Header from "./components/header/header";
 import Histogram from "./components/histogram/histogram";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import "./App.css";
 
 const client = new ApolloClient({
   uri: "https://fakerql.goosfraba.ro/graphql",

@@ -102,7 +102,7 @@ if (error) return `Error! ${error.message}`;
 $ npm install @visx/shape @visx/group @visx/scale @visx/axis @visx/gradient @visx/responsive
 ```
 
-- Made a new array of objects from **monthsCounter** entries, each object containing the month name and its value for creating the histogram
+- Made a new array of objects from **monthsCounter** entries, each object containing the month name and its value for creating the histogram based on documentation
 
 ```
   const histogramData = Object.entries(monthsCounter).map((arr) => {
@@ -114,10 +114,15 @@ $ npm install @visx/shape @visx/group @visx/scale @visx/axis @visx/gradient @vis
 ```
 
 - Took the code from **VISX** documentation and adapted it to my code
+
   - I chose a **Bar** shape
   - I changed the data object name with my data object, **histogramData**
   - I changed the names for the axis labels
   - I added width and height props to **Histogram** component in App.js
   - I changed the bound for bottom axis
   - I changed the bar witdh
-  - I changed the number of ticks for left axis, **numTicks**,
+  - I changed the number of ticks for left axis, **numTicks**
+
+- Made a new folder named **utils** for a constants file and moved the constants from histogram.js there
+
+- Made a new file in **utils** folder, named **helper_functions** and created 2 functions, **boundsHistogram** and **scalesHistogram** where I put the bounds and scales code to reduce the code lines in **Histogram** component for better readability

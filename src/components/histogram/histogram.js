@@ -1,24 +1,16 @@
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { Bar } from "@visx/shape";
 import { Group } from "@visx/group";
-import { scaleBand, scaleLinear } from "@visx/scale";
 import { AxisLeft, AxisBottom } from "@visx/axis";
 import { GradientTealBlue } from "@visx/gradient";
+import {
+  POSTS,
+  GET_MONTH,
+  GET_MONTH_VALUE,
+  VERTICAL_MARGIN,
+} from "../../utils/constants";
+import { boundsHistogram, scalesHistogram } from "../../utils/helper_functions";
 import "./histogram.css";
-
-const POSTS = gql`
-  query getPosts {
-    allPosts(count: 50) {
-      id
-      createdAt
-    }
-  }
-`;
-
-const x = (data) => data.month;
-const y = (data) => data.value;
-
-const verticalMargin = 120;
 
 const Histogram = ({ width, height }) => {
   const { loading, error, data } = useQuery(POSTS);
@@ -61,28 +53,16 @@ const Histogram = ({ width, height }) => {
   });
 
   // bounds
-  const xMax = 1000;
-  const yMax = height - verticalMargin;
+  const { xMax, yMax } = boundsHistogram(height);
 
   // scales
-  const xScale = scaleBand({
-    range: [0, xMax],
-    round: true,
-    domain: histogramData.map(x),
-    padding: 0.5,
-  });
-
-  const yScale = scaleLinear({
-    range: [yMax, 0],
-    round: true,
-    domain: [0, Math.max(...histogramData.map(y))],
-  });
+  const { xScale, yScale } = scalesHistogram(xMax, yMax, histogramData);
 
   return (
     <svg width={width} height={height}>
       <GradientTealBlue id="teal" />
       <rect width={width} height={height} fill="url(#teal)" rx={14} />
-      <Group top={verticalMargin / 2} left={60}>
+      <Group top={VERTICAL_MARGIN / 2} left={60}>
         <AxisLeft
           left={10}
           scale={yScale}
@@ -90,9 +70,9 @@ const Histogram = ({ width, height }) => {
           label="Number of Posts"
         />
         {histogramData.map((d) => {
-          const month = x(d);
+          const month = GET_MONTH(d);
           const barWidth = 50;
-          const barHeight = yMax - (yScale(y(d)) ?? 0);
+          const barHeight = yMax - (yScale(GET_MONTH_VALUE(d)) ?? 0);
           const barX = xScale(month);
           const barY = yMax - barHeight;
           return (
