@@ -14,7 +14,7 @@ const scalesHistogram = (xMax, yMax, data) => {
       range: [0, xMax],
       round: true,
       domain: data.map(GET_MONTH),
-      padding: 0.5,
+      padding: 0.4,
     }),
     yScale: scaleLinear({
       range: [yMax, 0],

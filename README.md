@@ -126,3 +126,11 @@ $ npm install @visx/shape @visx/group @visx/scale @visx/axis @visx/gradient @vis
 - Made a new folder named **utils** for a constants file and moved the constants from histogram.js there
 
 - Made a new file in **utils** folder, named **helper_functions** and created 2 functions, **boundsHistogram** and **scalesHistogram** where I put the bounds and scales code to reduce the code lines in **Histogram** component for better readability
+
+- Changed the style of the whole page to look aesthetically pleasing
+  - Added background color to the page and centered the content
+  - Added a new **Bar** that goes from the max value on Y to the current value of a month
+  - Added 2 linear gradient backgrounds, one for each **Bar**
+  - Removed labels and left axis
+  - Changed the font and size of the title
+  - Added text with every value of each month on top of the **Bar**,

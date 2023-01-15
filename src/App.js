@@ -12,7 +12,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Header />
-      <Histogram width={1500} height={500} />
+      <Histogram width={1100} height={500} />
     </ApolloProvider>
   );
 }

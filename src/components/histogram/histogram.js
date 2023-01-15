@@ -2,7 +2,6 @@ import { useQuery } from "@apollo/client";
 import { Bar } from "@visx/shape";
 import { Group } from "@visx/group";
 import { AxisLeft, AxisBottom } from "@visx/axis";
-import { GradientTealBlue } from "@visx/gradient";
 import {
   POSTS,
   GET_MONTH,
@@ -60,33 +59,53 @@ const Histogram = ({ width, height }) => {
 
   return (
     <svg width={width} height={height}>
-      <GradientTealBlue id="teal" />
-      <rect width={width} height={height} fill="url(#teal)" rx={14} />
+      <linearGradient id="primaryBar" gradientTransform="rotate(90)">
+        <stop offset="5%" stop-color="rgba(17,242,202,1)" />
+        <stop offset="95%" stop-color="rgba(7,173,243,1)" />
+      </linearGradient>
+      <linearGradient id="secondBar" gradientTransform="rotate(90)">
+        <stop offset="5%" stop-color="rgba(25,53,100,1)" />
+        <stop offset="95%" stop-color="rgba(17,93,183,1)" />
+      </linearGradient>
       <Group top={VERTICAL_MARGIN / 2} left={60}>
-        <AxisLeft
-          left={10}
-          scale={yScale}
-          numTicks={7}
-          label="Number of Posts"
-        />
+        {/* <AxisLeft left={10} scale={yScale} numTicks={7} /> */}
         {histogramData.map((d) => {
           const month = GET_MONTH(d);
           const barWidth = 50;
           const barHeight = yMax - (yScale(GET_MONTH_VALUE(d)) ?? 0);
+          const barMaxHeight = yMax;
           const barX = xScale(month);
           const barY = yMax - barHeight;
+          const barMaxY = yMax - barMaxHeight;
           return (
-            <Bar
-              key={`bar-${month}`}
-              x={barX}
-              y={barY}
-              width={barWidth}
-              height={barHeight}
-              fill="rgba(23, 233, 217, .5)"
-            />
+            <>
+              <Bar
+                key={`barMax-${month}`}
+                x={barX}
+                y={barMaxY}
+                width={barWidth}
+                height={barMaxHeight}
+                fill="url('#secondBar')"
+              />
+              <Bar
+                key={`bar-${month}`}
+                x={barX}
+                y={barY}
+                width={barWidth}
+                height={barHeight}
+                fill="url('#primaryBar')"
+              />
+              <text
+                x={d.value.toString().length === 1 ? barX + 20 : barX + 15}
+                y={barY + 20}
+                fill="#193564"
+              >
+                {d.value}
+              </text>
+            </>
           );
         })}
-        <AxisBottom scale={xScale} label="Month" labelOffset={15} top={yMax} />
+        <AxisBottom scale={xScale} labelOffset={15} top={yMax} />
       </Group>
     </svg>
   );
