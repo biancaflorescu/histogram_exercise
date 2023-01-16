@@ -3,3 +3,13 @@ h1 {
   color: #fff;
   font-size: 1.7rem;
 }
+
+span {
+  background: -webkit-linear-gradient(
+    rgba(17, 242, 202, 1),
+    rgba(7, 173, 243, 1)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}

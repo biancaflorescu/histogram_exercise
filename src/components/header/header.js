@@ -2,8 +2,10 @@ import "./header.css";
 
 const Header = () => {
   return (
-    <div>
-      <h1>Number of posts created in each month of 2019</h1>
+    <div className="header-container">
+      <h1>
+        Number of posts created in each month of <span>2019</span>
+      </h1>
     </div>
   );
 };

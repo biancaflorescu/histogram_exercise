@@ -10,10 +10,13 @@ import {
 } from "../../utils/constants";
 import { boundsHistogram, scalesHistogram } from "../../utils/helper_functions";
 import QueryLoading from "../queryLoading/queryLoading";
+import { useState } from "react";
 
 import "./histogram.css";
+import BarAnimation from "../barAnimation/barAnimation";
 
 const Histogram = ({ width, height }) => {
+  const [isVisible, setIsVisible] = useState(false);
   const { loading, error, data } = useQuery(POSTS);
 
   if (loading) return <QueryLoading />;
@@ -59,6 +62,10 @@ const Histogram = ({ width, height }) => {
   // scales
   const { xScale, yScale } = scalesHistogram(xMax, yMax, histogramData);
 
+  setTimeout(() => {
+    setIsVisible(true);
+  }, 1000);
+
   return (
     <svg width={width} height={height}>
       <linearGradient id="primaryBar" gradientTransform="rotate(90)">
@@ -78,13 +85,12 @@ const Histogram = ({ width, height }) => {
           const barMaxHeight = yMax;
           const barX = xScale(month);
           const barY = yMax - barHeight;
-          const barMaxY = yMax - barMaxHeight;
           return (
             <>
               <Bar
                 key={`barMax-${month}`}
                 x={barX}
-                y={barMaxY}
+                y={0}
                 width={barWidth}
                 height={barMaxHeight}
                 fill="url('#secondBar')"
@@ -96,14 +102,21 @@ const Histogram = ({ width, height }) => {
                 width={barWidth}
                 height={barHeight}
                 fill="url('#primaryBar')"
-              />
+              >
+                <BarAnimation
+                  d={d}
+                  yScale={yScale}
+                  barMaxHeight={barMaxHeight}
+                  barHeight={barHeight}
+                />
+              </Bar>
               <text
                 key={`text-bar-${month}`}
                 x={d.value.toString().length === 1 ? barX + 20 : barX + 15}
                 y={barY + 20}
                 fill="#193564"
               >
-                {d.value}
+                {isVisible ? d.value : ""}
               </text>
             </>
           );

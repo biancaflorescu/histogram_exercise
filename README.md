@@ -137,3 +137,9 @@ $ npm install @visx/shape @visx/group @visx/scale @visx/axis @visx/gradient @vis
   - Added text with every value of each month on top of the **Bar**,
 
 - Installed **bootstrap** and **react-bootstrap** packages and created a **QueryLoading** Component to render a React-Bootstrap **Spinner** when the query is loading
+
+- Added bar animation and moved it to a new component **BarAnimation**
+
+- Created a **setTimeout** function to load text values on the bars after the animation is finished
+
+- Added gradient color to the title
