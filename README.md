@@ -1,4 +1,4 @@
-# Goosfraba Exercise
+# Histogram Exercise
 
 ## Project Description
 
