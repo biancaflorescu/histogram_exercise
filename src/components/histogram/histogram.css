@@ -14,14 +14,9 @@ svg {
 }
 
 .visx-axis-line {
-  /* stroke-width: 0.6; */
   stroke: #fff;
 }
 
 text {
   font-weight: bold;
-}
-
-.visx-bar {
-  transition: height 1500ms, y 1500ms;
 }

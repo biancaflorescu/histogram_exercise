@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { Bar } from "@visx/shape";
 import { Group } from "@visx/group";
-import { AxisLeft, AxisBottom } from "@visx/axis";
+import { AxisBottom } from "@visx/axis";
 import {
   POSTS,
   GET_MONTH,
@@ -9,12 +9,14 @@ import {
   VERTICAL_MARGIN,
 } from "../../utils/constants";
 import { boundsHistogram, scalesHistogram } from "../../utils/helper_functions";
+import QueryLoading from "../queryLoading/queryLoading";
+
 import "./histogram.css";
 
 const Histogram = ({ width, height }) => {
   const { loading, error, data } = useQuery(POSTS);
 
-  if (loading) return "Loading...";
+  if (loading) return <QueryLoading />;
 
   if (error) return `Error! ${error.message}`;
 
@@ -60,15 +62,15 @@ const Histogram = ({ width, height }) => {
   return (
     <svg width={width} height={height}>
       <linearGradient id="primaryBar" gradientTransform="rotate(90)">
-        <stop offset="5%" stop-color="rgba(17,242,202,1)" />
-        <stop offset="95%" stop-color="rgba(7,173,243,1)" />
+        <stop offset="5%" stopColor="rgba(17,242,202,1)" />
+        <stop offset="95%" stopColor="rgba(7,173,243,1)" />
       </linearGradient>
       <linearGradient id="secondBar" gradientTransform="rotate(90)">
-        <stop offset="5%" stop-color="rgba(25,53,100,1)" />
-        <stop offset="95%" stop-color="rgba(17,93,183,1)" />
+        <stop offset="5%" stopColor="rgba(25,53,100,1)" />
+        <stop offset="95%" stopColor="rgba(17,93,183,1)" />
       </linearGradient>
+
       <Group top={VERTICAL_MARGIN / 2} left={60}>
-        {/* <AxisLeft left={10} scale={yScale} numTicks={7} /> */}
         {histogramData.map((d) => {
           const month = GET_MONTH(d);
           const barWidth = 50;
@@ -96,6 +98,7 @@ const Histogram = ({ width, height }) => {
                 fill="url('#primaryBar')"
               />
               <text
+                key={`text-bar-${month}`}
                 x={d.value.toString().length === 1 ? barX + 20 : barX + 15}
                 y={barY + 20}
                 fill="#193564"
